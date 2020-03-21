@@ -14,19 +14,35 @@
   </div>
 
   <script type="module">
-    import 'https://www.verovio.org/javascript/app/verovio-app.js';
+  //  import 'https://www.verovio.org/javascript/app/verovio-app.js';
 
       // Create the app - here with an empty option object
-      const app = new Verovio.App(document.getElementById("app"), {});
+      //const app = new Verovio.App(document.getElementById("app"), {});
 
       // Load a file (MEI or MusicXML)
-      fetch("https://www.verovio.org/editor/brahms.mei")
-          .then(function(response) {
-              return response.text();
-          })
-          .then(function(text) {
-              app.loadData(text);
-          });
+      //fetch("https://www.verovio.org/editor/brahms.mei")
+
+
+      window.FileReader　を使用してBoolean形式で確認してみます。
+
+      var result = Boolean(window.FileReader);
+
+      if (result) {
+
+      console.log('FileReaderはサポートしています。');
+
+      } else {
+
+      console.log('FileReaderはサポートしていません。');
+
+      }
+
+      //    .then(function(response) {
+    //          return response.text();
+    //      })
+    //      .then(function(text) {
+    //          app.loadData(text);
+    //      });
   </script>
 </body>
 
