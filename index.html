@@ -1,49 +1,40 @@
-<html lang="en" dir="ltr">
-
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-  <script type="text/javascript">
-
-  </script>
   <meta charset="utf-8">
-  <title>MUSIC</title>
-
+  <title>File（制限あり）</title>
 </head>
-
 <body>
-  HI
-  <input type="file" id="file">
 
-  <script type="text/javascript">
-  (function() {
+<p>選択できるファイルは10KB以下のJPEG画像ファイルです。<br>
+<input type="file" id="file"></p>
+<div id="mod-log">
+</div>
 
-    var inputFile = document.getElementById('file');
+<script>
 
-    function fileChange(ev) {
-      var target = ev.target;
-      var file = target.files[0];
-      var type = file.type;
-      var size = file.size;
-      var limit = 10000; // byte, 10KB
+(function() {
 
-      if ( type !== 'image/jpeg' ) {
-        alert('選択できるファイルは10KB以下のJPEG画像だけです。');
-        inputFile.value = '';
-        return;
-      }
+  var inputFile = document.getElementById('file');
 
-      if ( limit < size ) {
-        alert('10KBを超えています。10KB以下のファイルを選択してください。');
-        inputFile.value = '';
-      }
+  function fileChange(ev) {
+    var target = ev.target;
+    var file = target.files[0];
+    var type = file.type;
+    var size = file.size;
+    var limit = 10000; // byte, 10KB
 
-    }
+var reader = new FileReader();
 
-    inputFile.addEventListener('change', fileChange, false);
+reader.readreadAsText(file);
+alert(reader.reresult);
+  }
 
-  }());
+  inputFile.addEventListener('change', fileChange, false);
 
-  </script>
+}());
+
+</script>
 
 </body>
-
 </html>
