@@ -12,9 +12,21 @@
   <div class="panel-body">
     <div id="app" class="panel" style="border: 1px solid lightgray; min-height: 800px;"></div>
   </div>
+  <script>
 
+  var result = Boolean(window.FileReader);
 
-  <script >
+  if (result) {
+
+  console.log('FileReaderはサポートしています。');
+
+  } else {
+
+  console.log('FileReaderはサポートしていません。');
+
+  }
+  </script>
+  <script type="module">
   //  import 'https://www.verovio.org/javascript/app/verovio-app.js';
 
       // Create the app - here with an empty option object
@@ -24,19 +36,7 @@
       //fetch("https://www.verovio.org/editor/brahms.mei")
 
 
-    //  window.FileReader　を使用してBoolean形式で確認してみます。
 
-      var result = Boolean(window.FileReader);
-
-      if (result) {
-
-      console.log('FileReaderはサポートしています。');
-
-      } else {
-
-      console.log('FileReaderはサポートしていません。');
-
-      }
 
       //    .then(function(response) {
     //          return response.text();
