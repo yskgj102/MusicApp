@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <script src="http://www.verovio.org/javascript/latest/verovio-toolkit.js"></script>
-    <meta charset="utf-8">
-    <title>MUSIC</title>
-  </head>
-  <body>
-    <div class="panel-body">
-      <div id="app" class="panel" style="border: 1px solid lightgray; min-height: 800px;"></div>
+
+<head>
+  <script src="http://www.verovio.org/javascript/latest/verovio-toolkit.js"></script>
+  <meta charset="utf-8">
+  <title>MUSIC</title>
+</head>
+
+<body>
+  HI
+  <div class="panel-body">
+    <div id="app" class="panel" style="border: 1px solid lightgray; min-height: 800px;"></div>
   </div>
 
   <script type="module">
-      import 'https://www.verovio.org/javascript/app/verovio-app.js';
+    import 'https://www.verovio.org/javascript/app/verovio-app.js';
 
       // Create the app - here with an empty option object
       const app = new Verovio.App(document.getElementById("app"), {});
@@ -25,5 +28,6 @@
               app.loadData(text);
           });
   </script>
-  </body>
+</body>
+
 </html>
