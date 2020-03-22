@@ -8,34 +8,124 @@
 
 <body>
 
-  <p>選択できるファイルは10KB以下のJPEG画像ファイルです。<br>
-    <input type="file" id="file"></p>
+
   <div id="mod-log">
   </div>
 
-  <script>
-    (function() {
 
-      var inputFile = document.getElementById('file');
+  <script type="text/javascript">
 
-      function fileChange(ev) {
-        var target = ev.target;
-        var file = target.files[0];
-        var type = file.type;
-        var size = file.size;
-        var limit = 10000; // byte, 10KB
 
-        var reader = new FileReader();
+    // Drop領域にドロップした際のファイルのプロパティ情報読み取り処理
+    function onDrop(event) {
+      // （1）ドロップされたファイルのfilesプロパティを参照
+      var files = event.dataTransfer.files;
+      var disp = document.getElementById("disp");
 
-        reader.readAsText(file);
-        console.log(reader.result); // "文字列テスト"
+      disp.innerHTML = "";
+      for (var i = 0; i < files.length; i++) {
+        var f = files[i];
+        // （2）ファイル名とサイズを表示
+        disp.innerHTML += "ファイル名 :" + f.name + "ファイルの型:" + f.type + "ファイルサイズ:" + f.size / 1000 + " KB " +"<br />";
+
       }
+      // （3）ブラウザ上でファイルを展開する挙動を抑止
+      event.preventDefault();
+    }
 
-      inputFile.addEventListener('change', fileChange, false);
-
-    }());
+    function onDragOver(event) {
+      // （4）ブラウザ上でファイルを展開する挙動を抑止
+      event.preventDefault();
+    }
   </script>
 
+  <section id="main">
+    <p>ドラッグアンドドロップで1つから複数のファイルのプロパティを取得します。</p>
+    <div id="drop" style="width:700px; height:150px; padding:10px; border:3px solid" ondragover="onDragOver(event)" ondrop="onDrop(event)"  >ここにドロップしたファイルのプロパティを読み込みます。</div>
+    <p>ファイルプロパティ表示</p>
+    <div id="disp" ></div>
+  </section>
+
+
+  <script type="text/javascript">
+    // 前サンプル同様のFile API実装チェック（省略）
+
+
+  </script>
+  <div class="panel-body">
+    <div id="app" class="panel" style="border: 1px solid lightgray; min-height: 800px;"></div>
+</div>
+
+<script type="module">
+  import 'https://www.verovio.org/javascript/app/verovio-app.js';
+  // Create the app - here with an empty option object
+  const app = new Verovio.App(document.getElementById("app"), {});
+        // Drop領域にドロップした際のファイルのプロパティ情報読み取り処理
+        function onDrop(event) {
+          var files = event.dataTransfer.files;
+          var disp = document.getElementById("disp");
+          disp.innerHTML ="";
+
+          // ファイルの配列から1つずつファイルを選択
+          for (var i=0; i< files.length; i++) {
+            var f = files[i];
+            // （1）FileReaderオブジェクトの生成
+            var reader = new FileReader();
+
+            // // （2）画像ファイルかテキスト・ファイルかを判定
+            // if (!f.type.match('image.*') && !f.type.match('text.*')) {
+            //   alert("画像ファイルとテキスト・ファイル以外は表示できません。");
+            //   continue;
+            // }
+
+            // （3）エラー発生時の処理
+            reader.onerror = function (evt) {
+              disp.innerHTML = "読み取り時にエラーが発生しました。";
+            }
+
+            // （4）画像ファイルの場合の処理
+            if (f.type.match('image.*')) {
+              // ファイル読取が完了した際に呼ばれる処理
+              reader.onload = function (evt) {
+                var li = document.createElement('li');
+                var img = document.createElement('img');
+                img.src = evt.target.result;
+                li.appendChild(img);
+                li.innerHTML += "<br />";
+                disp.appendChild(li);
+              }
+              // readAsDataURLメソッドでファイルの内容を取得
+              reader.readAsDataURL(f);
+            }
+
+            // （5）テキスト・ファイルの場合の処理
+      //      if (f.type.match('text.*')) {
+              // ファイル読取が完了した際に呼ばれる処理
+              reader.onload = function (evt) {
+                // FileReaderが取得したテキストをそのままdivタグに出力
+                disp.innerHTML = reader.result;
+
+              }
+              // readAsTextメソッドでファイルの内容を取得
+              reader.readAsText(f, 'utf-8');
+//app.loadData(reader.readAsText(f, 'utf-8'));
+
+
+
+              // Load a file (MEI or MusicXML)
+
+
+            }
+  //        }
+        // （6）ブラウザ上でファイルを展開する挙動を抑止
+        event.preventDefault();
+        }
+
+        function onDragOver(event) {
+          // （6）ブラウザ上でファイルを展開する挙動を抑止
+          event.preventDefault();
+        }
+</script>
 </body>
 
 </html>
